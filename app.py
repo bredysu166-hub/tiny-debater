@@ -41,8 +41,9 @@ if prompt := st.chat_input("請輸入你的觀點、證據或反駁..."):
     try:
         # 設定 API Key (從 Secrets 讀取)
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-        # 修正點：將 'gemini-pro' 改為更新的 'gemini-1.5-flash'
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        
+        # 修正點：改回 gemini-pro，避免 1.5-flash 在舊版環境報錯
+        model = genai.GenerativeModel('gemini-pro')
         
         # 組合提示詞 (Prompt Engineering)
         full_prompt = f"""
@@ -67,4 +68,4 @@ if prompt := st.chat_input("請輸入你的觀點、證據或反駁..."):
         st.session_state.messages.append({"role": "assistant", "content": ai_reply})
         
     except Exception as e:
-        st.error(f"連線錯誤，請檢查 API Key 設定。錯誤訊息: {e}")
+        st.error(f"連線錯誤。請確認 API Key 是否正確。錯誤訊息: {e}")
