@@ -41,7 +41,8 @@ if prompt := st.chat_input("請輸入你的觀點、證據或反駁..."):
     try:
         # 設定 API Key (從 Secrets 讀取)
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-        model = genai.GenerativeModel('gemini-pro')
+        # 修正點：將 'gemini-pro' 改為更新的 'gemini-1.5-flash'
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         # 組合提示詞 (Prompt Engineering)
         full_prompt = f"""
